@@ -1,0 +1,46 @@
+service: quarkus-amazon-lambda-http
+
+frameworkVersion: ">=1.56.1"
+
+provider:
+  name: aws
+  stage: dev
+  region: eu-central-1
+  tracing:
+    lambda: true
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+  runtime: ${self:custom.${opt:xtype, 'jvm'}.runtime}
+  memorySize: ${self:custom.${opt:xtype, 'jvm'}.memorySize}
+  endpointType: regional
+
+package:
+  artifact: ${self:custom.${opt:xtype, 'jvm'}.package.artifact}
+
+custom:
+  jvm:
+    runtime: java8
+    memorySize: 512
+    environment:
+      foo: bar
+    package:
+      artifact: target/quarkus-lambda-http-1.0-SNAPSHOT-runner.jar
+    handler: io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
+  native:
+    runtime: provided
+    memorySize: 128
+    environment:
+      DISABLE_SIGNAL_HANDLERS: true
+    package:
+      artifact: target/function.zip
+    handler: handler
+
+functions:
+  hello:
+    handler: ${self:custom.${opt:xtype, 'jvm'}.handler}
+    environment: ${self:custom.${opt:xtype, 'jvm'}.environment}
+    events:
+    - http:
+        method: any
+        path: /{proxy+}
