@@ -28,20 +28,9 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- remove if not using jaxrs -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <!-- remove if not using servlets -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow</artifactId>
-        </dependency>
-        <!-- remove if not using vertx web -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx-web</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
