@@ -20,7 +20,7 @@ package:
 
 custom:
   jvm:
-    runtime: java8
+    runtime: java11
     memorySize: 512
     environment:
       foo: bar
