@@ -6,7 +6,11 @@ Build with
 
     mvn clean package -Dnative=true -Dnative-image.docker-build=true
 
-Try locally with
+Run locally in dev mode with
+
+    mvn compile quarkus:dev
+
+Try locally in a lambda context with
 
     sls invoke local --docker -f hello --path event.json --xtype=[native|jvm]
 
